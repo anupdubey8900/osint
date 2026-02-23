@@ -11,7 +11,7 @@ from telethon.sync import TelegramClient
 # ==========================================
 API_ID = 34179263
 API_HASH = "6a54e9a94340b6a6983df4b7acfccd00"
-SESSION_NAME = 'termux_osint_session'  # Termux ke liye naya session
+SESSION_NAME = 'termux_osint_session'  
 TARGET_BOT = 'utkarsh_hackerr_bot'  
 DB_NAME = 'anurag_data.db'
 
@@ -84,14 +84,14 @@ def search_log(query):
     except: return None
 
 # ==========================================
-# 🎨 UI CODE (CYBER-GLASS + MADE BY UTKARSH)
+# 🎨 UI CODE (PC & ANDROID APP DESIGN)
 # ==========================================
 HTML_CODE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UTKARSH | CYBER OSINT</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;500;600&display=swap');
@@ -114,9 +114,9 @@ HTML_CODE = """
         }
 
         .watermark {
-            position: absolute; bottom: 20px; right: 30px; color: rgba(255, 255, 255, 0.25);
-            font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase;
-            z-index: 100; pointer-events: none; text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+            position: absolute; bottom: 15px; right: 25px; color: rgba(255, 255, 255, 0.2);
+            font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+            z-index: 100; pointer-events: none; text-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
         .grid-bg {
@@ -129,6 +129,7 @@ HTML_CODE = """
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
         }
 
+        /* ---------------- MAIN DASHBOARD ---------------- */
         .dashboard {
             background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             width: 100%; max-width: 1000px; height: 85vh; border-radius: 24px;
@@ -137,15 +138,7 @@ HTML_CODE = """
             display: flex; overflow: hidden; z-index: 1;
         }
 
-        /* Responsive Fix for Mobile (Termux Users) */
-        @media (max-width: 768px) {
-            .dashboard { flex-direction: column; height: 100vh; border-radius: 0; }
-            .sidebar { width: 100%; padding: 20px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-            .main { padding: 20px; }
-            .page-title { font-size: 24px; }
-            .watermark { display: none; }
-        }
-
+        /* ---------------- SIDEBAR (PC) / HEADER (MOBILE) ---------------- */
         .sidebar {
             width: 280px; background: rgba(2, 6, 23, 0.4);
             border-right: 1px solid rgba(255, 255, 255, 0.05); padding: 35px 25px;
@@ -158,14 +151,16 @@ HTML_CODE = """
         .brand-icon {
             background: linear-gradient(135deg, #0ea5e9, #6366f1); color: white; width: 42px; height: 42px;
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+            font-size: 20px; box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); flex-shrink: 0;
         }
 
         .nav-label { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; padding-left: 5px; }
         
+        .nav-group { display: flex; flex-direction: column; gap: 10px; }
+        
         .nav-btn {
             width: 100%; background: transparent; border: 1px solid transparent; padding: 14px 18px; border-radius: 12px; font-size: 14px; font-weight: 600;
-            color: #94a3b8; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+            color: #94a3b8; text-align: left; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 12px;
         }
         .nav-btn:hover { background: rgba(255, 255, 255, 0.03); color: #e2e8f0; }
         .nav-btn.active {
@@ -178,30 +173,25 @@ HTML_CODE = """
             font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px;
             box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); transition: 0.3s; position: relative; overflow: hidden;
         }
-        .buy-tools-btn::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: skewX(-20deg); transition: 0.5s;
-        }
-        .buy-tools-btn:hover::after { left: 150%; }
-        .buy-tools-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4); }
 
+        /* ---------------- MAIN CONTENT ---------------- */
         .main { flex: 1; display: flex; flex-direction: column; padding: 40px; overflow: hidden; position: relative; }
 
-        .page-header { margin-bottom: 35px; }
+        .page-header { margin-bottom: 25px; }
         .page-title { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-        .page-desc { color: #94a3b8; font-size: 15px; margin-top: 8px; font-weight: 300; }
+        .page-desc { color: #94a3b8; font-size: 14px; margin-top: 5px; font-weight: 300; }
 
         .search-wrapper {
             background: rgba(0, 0, 0, 0.3); padding: 8px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; gap: 10px; margin-bottom: 30px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;
+            display: flex; gap: 10px; margin-bottom: 25px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); transition: all 0.3s ease;
         }
         .search-wrapper:focus-within { border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 2px 4px rgba(0,0,0,0.5); }
-        .search-input { flex: 1; border: none; background: transparent; padding: 15px 25px; font-size: 16px; font-weight: 500; color: #fff; outline: none; font-family: 'Fira Code', monospace; letter-spacing: 1px; }
+        .search-input { flex: 1; border: none; background: transparent; padding: 15px 20px; font-size: 16px; font-weight: 500; color: #fff; outline: none; font-family: 'Fira Code', monospace; letter-spacing: 1px; width: 100%;}
         .search-input::placeholder { color: #475569; font-family: 'Outfit', sans-serif; letter-spacing: 0; }
         
         .search-btn {
             background: #e2e8f0; color: #0f172a; border: none; padding: 0 35px; border-radius: 14px; font-size: 15px; font-weight: 800;
-            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0;
         }
         .search-btn:hover { background: #fff; transform: scale(1.02); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
@@ -211,34 +201,74 @@ HTML_CODE = """
         }
 
         .result-header {
-            padding: 20px 30px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.02);
+            padding: 15px 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.02);
         }
-        .result-title { font-size: 13px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+        .result-title { font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
         
         .copy-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #cbd5e1;
-            padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px;
+            padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px;
         }
         .copy-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
         .copy-btn.copied { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
 
-        .result-body { padding: 30px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #334155 transparent; }
-        .result-body::-webkit-scrollbar { width: 6px; }
+        .result-body { padding: 25px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #334155 transparent; }
+        .result-body::-webkit-scrollbar { width: 4px; }
         .result-body::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         
-        .data-text { font-family: 'Fira Code', monospace; font-size: 14px; line-height: 1.8; color: #38bdf8; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        .data-text { font-family: 'Fira Code', monospace; font-size: 13px; line-height: 1.8; color: #38bdf8; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
 
-        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #475569; }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #475569; text-align: center;}
         .error-text { color: #f43f5e !important; text-shadow: 0 0 10px rgba(244, 63, 94, 0.2) !important; font-weight: 500; font-family: 'Outfit', sans-serif; }
 
         .loader-wrapper { display: none; text-align: center; padding: 40px 0; height: 100%; flex-direction: column; justify-content: center; align-items: center; }
-        .spinner { width: 50px; height: 50px; border: 3px solid rgba(255, 255, 255, 0.05); border-top: 3px solid #38bdf8; border-right: 3px solid #8b5cf6; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px auto; }
-        .scan-text { font-family: 'Fira Code', monospace; color: #38bdf8; font-size: 14px; letter-spacing: 2px; animation: pulse 1.5s infinite; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255, 255, 255, 0.05); border-top: 3px solid #38bdf8; border-right: 3px solid #8b5cf6; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px auto; }
+        .scan-text { font-family: 'Fira Code', monospace; color: #38bdf8; font-size: 12px; letter-spacing: 2px; animation: pulse 1.5s infinite; }
         
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* ==========================================
+           📱 MOBILE ANDROID APP RESPONSIVENESS
+           ========================================== */
+        @media (max-width: 768px) {
+            body { align-items: flex-start; }
+            .watermark { display: none; } /* Hide watermark on mobile */
+            
+            .dashboard {
+                flex-direction: column; height: 100vh; max-height: 100vh; border-radius: 0; border: none;
+            }
+            
+            /* Top App Header */
+            .sidebar {
+                width: 100%; padding: 15px 20px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; background: rgba(2, 6, 23, 0.8);
+            }
+            .brand { margin-bottom: 0; font-size: 18px; }
+            .brand-icon { width: 35px; height: 35px; font-size: 16px; }
+            .nav-label { display: none; }
+            
+            /* Tabs side-by-side */
+            .nav-group { flex-direction: row; width: 100%; margin-top: 15px; }
+            .nav-btn { flex: 1; padding: 10px; justify-content: center; font-size: 13px; margin-bottom: 0; }
+            
+            .buy-tools-btn { display: none; } /* Hidden on mobile to save space */
+            
+            /* Main Workspace */
+            .main { padding: 20px; overflow-y: auto; }
+            .page-header { margin-bottom: 15px; }
+            .page-title { font-size: 24px; }
+            .page-desc { font-size: 13px; }
+            
+            /* Search Area Vertical Stack */
+            .search-wrapper { flex-direction: column; background: transparent; border: none; box-shadow: none; padding: 0; gap: 10px; }
+            .search-input { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
+            .search-btn { padding: 15px; border-radius: 12px; font-size: 14px; width: 100%; }
+            
+            .result-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .copy-btn { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -252,10 +282,12 @@ HTML_CODE = """
             </div>
 
             <div class="nav-label">Extraction Protocol</div>
-            <button class="nav-btn active" id="btn-live" onclick="setMode('live')"><span style="font-size: 18px;">📡</span> Live Node Scan</button>
-            <button class="nav-btn" id="btn-db" onclick="setMode('db')"><span style="font-size: 18px;">🗄️</span> Secure Vault</button>
+            <div class="nav-group">
+                <button class="nav-btn active" id="btn-live" onclick="setMode('live')"><span style="font-size: 16px;">📡</span> Live Scan</button>
+                <button class="nav-btn" id="btn-db" onclick="setMode('db')"><span style="font-size: 16px;">🗄️</span> DB Vault</button>
+            </div>
 
-            <button class="buy-tools-btn" onclick="buyTools()">🛒 Premium Tool Access</button>
+            <button class="buy-tools-btn" onclick="buyTools()">🛒 Premium Tools</button>
         </div>
 
         <div class="main">
@@ -265,7 +297,7 @@ HTML_CODE = """
             </div>
 
             <div class="search-wrapper">
-                <input type="text" id="cmdInput" class="search-input" placeholder="Enter Target Identity (Number)..." autocomplete="off">
+                <input type="number" id="cmdInput" class="search-input" placeholder="Enter Target Number..." autocomplete="off">
                 <button class="search-btn" onclick="executeSearch()">EXECUTE</button>
             </div>
 
@@ -277,16 +309,16 @@ HTML_CODE = """
                 
                 <div class="result-body" id="resultBody">
                     <div class="empty-state" id="initialState">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        <p style="font-size: 14px;">Awaiting command input parameters...</p>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <p style="font-size: 13px;">Awaiting command parameters...</p>
                     </div>
                     
                     <div class="loader-wrapper" id="loaderState">
                         <div class="spinner"></div>
-                        <div class="scan-text">ESTABLISHING CONNECTION...</div>
+                        <div class="scan-text">CONNECTING...</div>
                     </div>
 
-                    <div class="data-text" id="finalData" style="display:none; animation: slideUp 0.4s ease-out;"></div>
+                    <div class="data-text" id="finalData" style="display:none; animation: slideUp 0.3s ease-out;"></div>
                 </div>
             </div>
         </div>
@@ -323,7 +355,7 @@ HTML_CODE = """
             document.getElementById('copyBtn').style.display = 'none';
             document.getElementById('loaderState').style.display = 'flex';
             document.getElementById('resHeaderTitle').innerText = `TARGET ACQUIRED: ${val}`;
-            document.querySelector('.scan-text').innerText = mode === 'live' ? 'BYPASSING SECURITY PROTOCOLS...' : 'SCANNING LOCAL DB...';
+            document.querySelector('.scan-text').innerText = mode === 'live' ? 'BYPASSING SECURITY...' : 'SCANNING DB...';
 
             fetch(mode === 'live' ? '/run_live' : '/search_db', {
                 method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({cmd: val})
@@ -335,7 +367,7 @@ HTML_CODE = """
                 dataBox.style.display = 'block';
                 
                 if(data.found) {
-                    document.getElementById('resHeaderTitle').innerText = `✅ DECRYPTION SUCCESSFUL: ${val}`;
+                    document.getElementById('resHeaderTitle').innerText = `✅ DECRYPTION SUCCESSFUL`;
                     document.getElementById('resHeaderTitle').style.color = '#38bdf8';
                     document.getElementById('copyBtn').style.display = 'flex';
                     dataBox.classList.remove('error-text');
@@ -348,7 +380,7 @@ HTML_CODE = """
                     if(data.reply && data.reply !== "Data Not Found") {
                         dataBox.innerHTML = data.reply.replace(/\\n/g, '<br>');
                     } else {
-                        dataBox.innerHTML = "DATA NOT FOUND!<br><br><span style='color:#94a3b8; font-size:14px;'>Target record does not exist or bot did not reply.</span>";
+                        dataBox.innerHTML = "DATA NOT FOUND!<br><br><span style='color:#94a3b8; font-size:13px;'>Target record does not exist or bot did not reply.</span>";
                     }
                 }
             })
@@ -357,7 +389,7 @@ HTML_CODE = """
                 let dataBox = document.getElementById('finalData');
                 dataBox.style.display = 'block';
                 dataBox.classList.add('error-text');
-                dataBox.innerHTML = "FATAL ERROR: Connection to extraction server failed.";
+                dataBox.innerHTML = "FATAL ERROR: Connection failed.";
             });
         }
 
@@ -377,7 +409,10 @@ HTML_CODE = """
         function buyTools() { window.open('https://t.me/utkarsh_hackerr_bot', '_blank'); }
 
         document.getElementById('cmdInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') executeSearch();
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Mobile keyboard fix
+                executeSearch();
+            }
         });
     </script>
 </body>
@@ -407,29 +442,25 @@ def run_live():
             client.send_message(TARGET_BOT, cmd)
             start_time = time.time()
             collected_messages = []
+            new_msg_found = False
             
-            # Loop for finding data (Max waiting time ~ 8-10 sec)
+            # FAST DUAL-CATCH POLLING (Max wait ~8 sec)
             for i in range(40): 
-                time.sleep(0.25)
-                msgs = client.get_messages(TARGET_BOT, limit=5)
-                
-                real_data_found_in_this_loop = False
+                time.sleep(0.2)
+                msgs = client.get_messages(TARGET_BOT, limit=3)
                 
                 for msg in msgs:
                     if not msg.out and (msg.date.timestamp() > start_time - 1):
                         text = msg.message or ""
-                        
                         if text.lower().strip() in ["processing...", "wait...", "searching...", "please wait..."]: 
                             continue
                             
                         cleaned_text = clean_bot_data(text)
-                        
                         if cleaned_text and cleaned_text not in collected_messages: 
                             collected_messages.append(cleaned_text)
-                            real_data_found_in_this_loop = True
+                            new_msg_found = True
                 
-                if real_data_found_in_this_loop:
-                    # 0.5 sec ka extra buffer taaki dusra (Asli) message miss na ho jaye
+                if new_msg_found:
                     time.sleep(0.5) 
                     msgs = client.get_messages(TARGET_BOT, limit=5)
                     for msg in msgs:
@@ -475,7 +506,7 @@ async def login_system():
     await client.connect()
     
     if not await client.is_user_authorized():
-        print("⚠️ NEW NUMBER DETECTED: LOGIN REQUIRED!")
+        print("⚠️ FIRST TIME SETUP: LOGIN REQUIRED!")
         phone = input("👉 Enter Phone Number (e.g. +919876543210): ")
         await client.send_code_request(phone)
         
@@ -493,20 +524,19 @@ async def login_system():
         print("✅ Telegram Session Active. Bot Ready.")
         
     await client.disconnect()
-    print("🌐 Starting Web Server...\n")
 
 if __name__ == '__main__':
-    # Login & Startup
+    # Login check
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(login_system())
     
-    # TERMUX FRIENDLY STARTUP
+    # TERMUX / PC FRIENDLY STARTUP
     print("\n" + "="*50)
     print("🚀 SERVER IS RUNNING PERFECTLY!")
     print("👉 OPEN YOUR CHROME/BROWSER AND TYPE THIS LINK:")
     print("🌐 http://127.0.0.1:5000")
     print("="*50 + "\n")
     
-    # Run the Flask App on 0.0.0.0 for localhost accessibility on Mobile/Termux
+    # Start web server automatically
     app.run(host='0.0.0.0', port=5000, debug=False)
