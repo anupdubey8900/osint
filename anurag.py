@@ -84,7 +84,7 @@ def search_log(query):
     except: return None
 
 # ==========================================
-# 🎨 UI CODE (PC & ANDROID APP DESIGN)
+# 🎨 UI CODE (PC & ANDROID APP DESIGN + SCROLL FIX)
 # ==========================================
 HTML_CODE = """
 <!DOCTYPE html>
@@ -212,7 +212,8 @@ HTML_CODE = """
         .copy-btn:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
         .copy-btn.copied { background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4); }
 
-        .result-body { padding: 25px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #334155 transparent; }
+        /* SCROLL CUT FIX: Increased padding-bottom to 60px so the text clears the border completely */
+        .result-body { padding: 25px 25px 60px 25px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #334155 transparent; }
         .result-body::-webkit-scrollbar { width: 4px; }
         .result-body::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         
@@ -234,13 +235,12 @@ HTML_CODE = """
            ========================================== */
         @media (max-width: 768px) {
             body { align-items: flex-start; }
-            .watermark { display: none; } /* Hide watermark on mobile */
+            .watermark { display: none; } 
             
             .dashboard {
                 flex-direction: column; height: 100vh; max-height: 100vh; border-radius: 0; border: none;
             }
             
-            /* Top App Header */
             .sidebar {
                 width: 100%; padding: 15px 20px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap; background: rgba(2, 6, 23, 0.8);
@@ -249,25 +249,26 @@ HTML_CODE = """
             .brand-icon { width: 35px; height: 35px; font-size: 16px; }
             .nav-label { display: none; }
             
-            /* Tabs side-by-side */
             .nav-group { flex-direction: row; width: 100%; margin-top: 15px; }
             .nav-btn { flex: 1; padding: 10px; justify-content: center; font-size: 13px; margin-bottom: 0; }
             
-            .buy-tools-btn { display: none; } /* Hidden on mobile to save space */
+            .buy-tools-btn { display: none; } 
             
-            /* Main Workspace */
-            .main { padding: 20px; overflow-y: auto; }
+            /* SCROLL CUT FIX FOR MOBILE: Extra padding at bottom so navbar doesn't cover data */
+            .main { padding: 20px 20px 40px 20px; overflow-y: auto; }
             .page-header { margin-bottom: 15px; }
             .page-title { font-size: 24px; }
             .page-desc { font-size: 13px; }
             
-            /* Search Area Vertical Stack */
             .search-wrapper { flex-direction: column; background: transparent; border: none; box-shadow: none; padding: 0; gap: 10px; }
             .search-input { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; }
             .search-btn { padding: 15px; border-radius: 12px; font-size: 14px; width: 100%; }
             
             .result-header { flex-direction: column; gap: 10px; align-items: flex-start; }
             .copy-btn { width: 100%; justify-content: center; }
+            
+            /* Extra scroll space for mobile screens */
+            .result-body { padding-bottom: 80px; }
         }
     </style>
 </head>
@@ -410,7 +411,7 @@ HTML_CODE = """
 
         document.getElementById('cmdInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Mobile keyboard fix
+                e.preventDefault(); 
                 executeSearch();
             }
         });
